@@ -36,3 +36,9 @@ For more information about SproutCore, visit http://www.sproutcore.com
 
 ==========================================================================
 @license */
+
+/**
+ * @license
+ * Copyright 2019 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
