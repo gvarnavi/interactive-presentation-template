@@ -64,6 +64,17 @@ const isMobile = () => (
 )
 
 export default function CodeEditor(props) {
+    
+    // this is fragile
+    let packages = undefined;
+    if ('metastring' in props) {
+	    const matches = props.metastring.match(/(?:"[^"]*"|^[^"]*$)/)[0].replace(/"/g, "");
+	    packages = {
+		official: [],
+		micropip: matches.split(" "),
+	    };
+    };
+
     const [input, setInput] = useState(props.code.trimEnd());
     const [showOutput, setShowOutput] = useState(false);
     const [playFocus, setplayFocus] = useState(false);
@@ -81,7 +92,7 @@ export default function CodeEditor(props) {
         isLoading,
         isRunning,
         interruptExecution,
-    } = usePython();
+    } = usePython({packages});
 
     const {colorMode} = useColorMode();
     const isBrowser = useIsBrowser();
@@ -164,7 +175,7 @@ export default function CodeEditor(props) {
             value={input}
             mode="python"
             name="CodeBlock"
-            fontSize={'0.9rem'}
+            fontSize={"var(--ifm-code-font-size)"}
             theme={colorMode === 'dark' ? "idle_fingers" : "textmate"}
             onChange={(newValue, e) => setInput(newValue)}
             width='100%'

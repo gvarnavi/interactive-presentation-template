@@ -16,8 +16,11 @@
   "dependencies": {
     "@docusaurus/core": "3.0.1",
     "@docusaurus/preset-classic": "3.0.1",
+    "@docusaurus/theme-live-codeblock": "^3.0.1",
     "@easyops-cn/docusaurus-search-local": "^0.38.1",
+    "@gvarnavi/two-nonconvex-sets-component": "https://api.observablehq.com/@gvarnavi/two-nonconvex-sets-component.tgz?v=3",
     "@mdx-js/react": "^3.0.0",
+    "@observablehq/runtime": "5",
     "ace-builds": "^1.32.0",
     "clsx": "^2.0.0",
     "docusaurus-plugin-sass": "^0.2.5",

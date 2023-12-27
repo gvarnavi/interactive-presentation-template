@@ -1,0 +1,102 @@
+---
+id: outline
+sidebar_position: 1
+title: Introduction
+hide_table_of_contents: true
+hide_title: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+import TwoNonconvexSetsComponent from '@site/src/components/TwoNonconvexSetsComponent.js';
+    
+export const packages = {
+        official: ['matplotlib'],
+	micropip: ['python-cowsay'],
+}
+
+# Runnable Code (Blocks)
+
+<Tabs Lazy>
+
+  <TabItem value="python" label="Python code" default >
+
+	Markdown preformatted code blocks with the `python` language identifier are
+	automatically converted to runnable and editable code blocks thanks
+	to [react-py](https://github.com/elilambnz/react-py).
+	See the react-py repo and documentation for more info.
+
+	For example, in a Markdown docs file:
+
+	````
+	```python
+	print("Hello, World!")
+	```
+	````
+
+	Becomes:
+
+	```python
+	print("Hello, World!")
+	```
+
+	For this configuration, this only loads the python stdlib and numpy by default.
+	If you want to install additional packages you can use a comma-separated list as so:
+
+	````
+	```python packages="scipy python-cowsay"
+	from scipy import special
+	from cowsay import cowsay
+
+	res = special.cbrt(27)
+	message = f"The cube root of 27 is {res}"
+	print(cowsay(message))
+	```
+	````
+
+	```python packages="scipy python-cowsay"
+	from scipy import special
+	from cowsay import cowsay
+
+	res = special.cbrt(27)
+	message = f"The cube root of 27 is {res}"
+	print(cowsay(message))
+	```
+  </TabItem>
+
+  <TabItem value="jsx" label="Javascript markup">
+	
+	Markdown preformatted code blocks with the `jsx live` language identifier are
+	automatically converted to runnable and editable code blocks thanks
+	to [@docusaurus/theme-live-codeblock](https://docusaurus.io/docs/markdown-features/code-blocks#interactive-code-editor).
+
+	````
+	```jsx live
+	function ReptileListItems() {
+	  const reptiles = ["alligator", "snake", "lizard"];
+	  return reptiles.map((reptile) => <li key={reptile}>{reptile}</li>);
+	}
+	```
+	````
+
+	```jsx live
+	function ReptileListItems() {
+	  const reptiles = ["alligator", "snake", "lizard"];
+	  return reptiles.map((reptile) => <li key={reptile}>{reptile}</li>);
+	}
+	```
+
+  </TabItem>
+	
+
+  <TabItem value="observable" label="Observable notebooks">
+	
+	Finally, you can embed Observable notebooks as React components directly, as described [here](https://observablehq.com/documentation/embeds/how-to-embed-a-notebook-in-a-react-app).
+
+    	<TwoNonconvexSetsComponent />
+
+  </TabItem>
+
+</Tabs>
+

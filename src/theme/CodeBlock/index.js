@@ -3,6 +3,8 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import ElementContent from '@theme/CodeBlock/Content/Element';
 import StringContent from '@theme/CodeBlock/Content/String';
 import CodeEditor from "@site/src/components/CodeEditor";
+import Playground from '@theme/Playground';
+import ReactLiveScope from '@theme/ReactLiveScope';
 
 function maybeStringifyChildren(children) {
     if (React.Children.toArray(children).some((el) => isValidElement(el))) {
@@ -14,9 +16,13 @@ function maybeStringifyChildren(children) {
 export default function CodeBlock({children: rawChildren, ...props}) {
     const children = maybeStringifyChildren(rawChildren);
     if (props.className === "language-python") {
-        // Add "showButtons" if you want play and reset buttons on by default
-        // return <CodeEditor code={children} showButtons/>
-        return <CodeEditor code={children}/>
+        return <CodeEditor code={children} {...props}/>
+    } else if (props.className === "language-jsx" && props.live) {
+	return (
+	    <Playground scope={ReactLiveScope} {...props}> 
+		{children}
+	    </Playground>
+	);
     } else {
         const isBrowser = useIsBrowser();
         const CodeBlockComp =
