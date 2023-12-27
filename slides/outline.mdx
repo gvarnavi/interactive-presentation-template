@@ -31,26 +31,33 @@ export const packages = {
 
 	````
 	```python
+	import numpy as np
+	
 	print("Hello, World!")
+	print(np.arange(10))
 	```
 	````
 
 	Becomes:
 
 	```python
+	import numpy as np
+	
 	print("Hello, World!")
+	print(np.arange(10))
 	```
 
-	For this configuration, this only loads the python stdlib and numpy by default.
-	If you want to install additional packages you can use a comma-separated list as so:
+	We have included numpy in our default install configuration, but if you want any additional 
+	packages you can specify them using a comma-separated list, per code-block:
 
 	````
 	```python packages="scipy python-cowsay"
 	from scipy import special
 	from cowsay import cowsay
 
-	res = special.cbrt(27)
-	message = f"The cube root of 27 is {res}"
+	num = 27
+	res = special.cbrt(num)
+	message = f"The cube root of {num} is {res}"
 	print(cowsay(message))
 	```
 	````
@@ -59,8 +66,9 @@ export const packages = {
 	from scipy import special
 	from cowsay import cowsay
 
-	res = special.cbrt(27)
-	message = f"The cube root of 27 is {res}"
+	num = 27
+	res = special.cbrt(num)
+	message = f"The cube root of {num} is {res}"
 	print(cowsay(message))
 	```
   </TabItem>
