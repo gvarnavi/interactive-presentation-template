@@ -1,0 +1,50 @@
+---
+id: matplotlib
+sidebar_position: 2
+title: Matplotlib
+hide_table_of_contents: true
+hide_title: true
+---
+
+import MatplotlibCodeEditor from '@site/src/components/MatplotlibCodeEditor.js';
+
+export const code = `import os
+import base64
+from io import BytesIO
+
+# Set this _before_ importing matplotlib
+os.environ['MPLBACKEND'] = 'AGG'
+
+import matplotlib.pyplot as plt
+
+# Patch
+def ensure_matplotlib_patch():
+  _old_show = plt.show
+
+  def show():
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+      
+    # Encode to a base64 str
+    img = "<MatplotlibOutput>"
+    img += 'data:image/png;base64,'
+    img += base64.b64encode(buf.read()).decode('utf-8')
+    img += "</MatplotlibOutput>"
+    # Write to stdout
+    print(img)
+    plt.clf()
+
+  plt.show = show
+
+ensure_matplotlib_patch()
+
+# Plot
+fig, ax = plt.subplots()
+ax.plot([1,3,2])
+plt.show()
+`;
+
+# Matplotlib plotting example
+
+<MatplotlibCodeEditor code={code} metastring='packages="matplotlib"' />
