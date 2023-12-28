@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
-import CodeEditor from "@site/src/components/CodeEditor";
-
+import MatplotlibCodeEditor from "@site/src/components/MatplotlibCodeEditor";
 
 import styles from './index.module.css';
 
-const code = `import numpy as np
+const code = `
+import os
+os.environ['MPLBACKEND'] = 'AGG'
+
+import matplotlib.pyplot as plt
+import numpy as np
 import py4DSTEM
 print(py4DSTEM.__version__)
 
@@ -21,9 +25,9 @@ py4DSTEM.io.gdrive_download(
     overwrite=True
 )
 
-
 dataset = py4DSTEM.read(file_data)
 
+py4DSTEM.visualize.ensure_matplotlib_patch()
 ptycho = py4DSTEM.process.phase.SingleslicePtychographicReconstruction(
     datacube=dataset,
     energy = 80e3,
@@ -42,9 +46,10 @@ ptycho = py4DSTEM.process.phase.SingleslicePtychographicReconstruction(
     max_iter = 4,
     max_batch_size = 510,
     gaussian_filter_sigma = 0.3,
+).visualize(
 )
 
-print(ptycho.error_iterations)
+plt.show()
 `
 
 export default function Home() {
@@ -56,7 +61,7 @@ export default function Home() {
                     <p className={styles.tagline}>A Docusaurus template for interactive presentations with runnable and editable Python and Javascript code blocks.</p>
                     <Link className={"button button--primary"} href={"slides/outline"}>Get Started</Link>
                     <div className={styles.codeEditorWrapper}>
-                        <CodeEditor code={code} metastring='packages="https://raw.githubusercontent.com/gvarnavi/py4DSTEM-lite/phase_contrast/dist/py4DSTEM-0.14.9-py3-none-any.whl"'/>
+                        <MatplotlibCodeEditor code={code} metastring='packages="https://raw.githubusercontent.com/gvarnavi/py4DSTEM-lite/phase_contrast/dist/py4DSTEM-0.14.9-py3-none-any.whl"'/>
                     </div>
                 </div>
             </main>
