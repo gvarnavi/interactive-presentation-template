@@ -1,0 +1,16 @@
+# Copyright (c) Datalayer, Inc. https://datalayer.io
+# Distributed under the terms of the MIT License.
+
+name: datalayer
+channels:
+  - conda-forge
+dependencies:
+  - jq
+  - make
+  - nodejs
+  - pip
+  - python
+  - yarn
+  - build
+  - hatch
+  - jupyterlab

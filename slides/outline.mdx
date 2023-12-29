@@ -1,7 +1,7 @@
 ---
 id: outline
 sidebar_position: 1
-title: Introduction
+title: Pyodide Kernels
 hide_table_of_contents: true
 hide_title: true
 ---
@@ -9,18 +9,16 @@ hide_title: true
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-import TwoNonconvexSetsComponent from '@site/src/components/TwoNonconvexSetsComponent.js';
-    
-# Runnable Code (Blocks)
+import MatplotlibCodeEditor from '@site/src/components/MatplotlibCodeEditor.js';
+
+# Pyodide web worker kernels
 
 <Tabs Lazy>
 
   <TabItem value="python" label="Python code" default >
 
-	Markdown preformatted code blocks with the `python` language identifier are
-	automatically converted to runnable and editable code blocks thanks
-	to [react-py](https://github.com/elilambnz/react-py).
-	See the react-py repo and documentation for more info.
+	Markdown preformatted code blocks with the `python` language identifier are automatically converted 
+	to runnable and editable code blocks thanks to [react-py](https://github.com/elilambnz/react-py).
 
 	For example, in a Markdown docs file:
 
@@ -67,7 +65,62 @@ import TwoNonconvexSetsComponent from '@site/src/components/TwoNonconvexSetsComp
 	print(cowsay(message))
 	```
   </TabItem>
+  
+  <TabItem value="matplotlib" label="Matplotlib output">
 
+	You'll notice the examples before used `print()` statements to pipe outputs to stdout.
+	This works reasonably well, but is restricted to textual outputs.
+	Below, we patch matplotlib's `show()` function to encode figures as a base64 png str to stdout,
+	which we catch and render as an image using the `MatplotlibCodeEditor` component.
+
+	````
+	<MatplotlibCodeEditor
+	metastring='packages="matplotlib"' 
+	code={`import os...`}
+	/>
+	````
+
+	<MatplotlibCodeEditor
+	metastring='packages="matplotlib"' 
+	code={`import os
+import base64
+from io import BytesIO
+
+# Set this _before_ importing matplotlib
+os.environ['MPLBACKEND'] = 'AGG'
+
+import matplotlib.pyplot as plt
+
+# Patch
+def ensure_matplotlib_patch():
+  _old_show = plt.show
+
+  def show():
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+	
+    # Encode to a base64 str
+    img = "<MatplotlibOutput>"
+    img += 'data:image/png;base64,'
+    img += base64.b64encode(buf.read()).decode('utf-8')
+    img += "</MatplotlibOutput>"
+    # Write to stdout
+    print(img)
+    plt.clf()
+
+  plt.show = show
+
+ensure_matplotlib_patch()
+
+# Plot
+fig, ax = plt.subplots()
+ax.plot([1,3,2])
+plt.show()`}
+	/>
+
+  </TabItem>
+  
   <TabItem value="jsx" label="Javascript markup">
 	
 	Markdown preformatted code blocks with the `jsx live` language identifier are
@@ -92,14 +145,5 @@ import TwoNonconvexSetsComponent from '@site/src/components/TwoNonconvexSetsComp
 
   </TabItem>
 	
-
-  <TabItem value="observable" label="Observable notebooks">
-	
-	Finally, you can embed Observable notebooks as React components directly, as described [here](https://observablehq.com/documentation/embeds/how-to-embed-a-notebook-in-a-react-app).
-
-    	<TwoNonconvexSetsComponent />
-
-  </TabItem>
-
 </Tabs>
 

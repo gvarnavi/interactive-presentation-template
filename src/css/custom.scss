@@ -1,3 +1,29 @@
+// Fixes for Jupyter's leaky CSS
+
+body {
+  font-size: unset !important;
+}
+
+a:not(.button):not(.navbar__brand):not(.menu__link) {
+  color: var(--ifm-link-color) !important;
+}
+
+.tabs__item--active {
+  color: var(--ifm-tabs-color-active) !important;
+}
+
+.theme-doc-markdown h1, h2, h3, h4, h5, h6, p, li {
+  color: var(--text-color) !important;
+}
+
+.theme-doc-markdown code {
+  font-size: calc(var(--ifm-code-font-size) * 16px) !important;
+}
+
+.theme-doc-markdown pre {
+  font: var(--ifm-code-font-size)/var(--ifm-pre-line-height) var(--ifm-font-family-monospace) !important;
+}
+
 // See: https://docusaurus.io/docs/styling-layout#styling-your-site-with-infima
 // For a colour picker to select your own theme colour
 :root {
@@ -10,24 +36,10 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-}
-
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-}
-
-:root {
+  
   --text-color: #213547;
   --text-color-alt: #273f54;
   --text-code-error: hsla(0, 100%, 50%, 90%);
-
   --divider-color: rgba(60, 60, 60, 0.12);
   --divider-color-alt: hsla(0, 0%, 40%, 0.08);
   --ifm-background-color: #ffffff;
@@ -35,33 +47,20 @@
   --ifm-background-surface-color: #f9f9f9;
   --ifm-background-surface-color-alt: hsl(0, 0%, 91%);
   --ifm-footer-background-color: var(--ifm-background-surface-color);
-
   --ifm-font-family: Helvetica, sans-serif;
   --ifm-heading-font-family: var(--ifm-font-family);
-
   --ifm-button-border-radius: 2.5em;
-
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-
   --code-background: #fafafa;
-}
-
-html[data-theme="dark"] {
-  --text-color: rgba(255, 255, 255, 0.85);
-  --text-color-faded: rgba(255, 255, 255, 0.8);
-  --text-color-alt: rgba(217, 217, 217, 0.85);
-  --divider-color: hsla(0, 0%, 33%, 0.48);
-  --divider-color-alt: hsla(0, 0%, 25%, 0.40);
-  --text-code-error: #B83426;
-
-  --ifm-background-color: #242424;
-  --ifm-background-color-trans: rgba(36, 36, 36, 0.95);
-  --ifm-background-surface-color: #1a1a1a;
-  --ifm-footer-background-color: var(--ifm-background-surface-color);
-
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-
-  --code-background: #323232;
+  
+  --jp-layout-color0: var(--code-background) !important;
+  --jp-layout-color1: var(--ifm-background-color) !important;
+  --jp-layout-color2: var(--code-background) !important;
+  --jp-content-font-color1: var(--text-color) !important;
+  --jp-ui-font-color0: var(--text-color) !important;
+  --jp-ui-font-color1: var(--text-color) !important;
+  --jp-ui-font-color2: var(--text-color) !important;
+  --jp-cell-editor-border-color: var(--code-background) !important;
+  --jp-border-color2: var(--text-color) !important;
 }
 
 body {
@@ -136,10 +135,6 @@ body {
   pre {
     background-color: var(--code-background);
   }
-}
-
-html[data-theme='dark'] .diagram {
-  filter: invert(0.92) !important;
 }
 
 // Code Blocks
