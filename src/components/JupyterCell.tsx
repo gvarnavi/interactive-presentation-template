@@ -22,6 +22,7 @@ const JupyterCell = (props: any) => {
               jupyterToken={token}
               jupyterServerHttpUrl={serverHttpUrl}
               jupyterServerWsUrl={serverWsUrl}
+              lite={false}
               disableCssLoading={true}
             >
               <Cell source={source}/>

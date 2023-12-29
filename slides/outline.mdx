@@ -70,15 +70,6 @@ import MatplotlibCodeEditor from '@site/src/components/MatplotlibCodeEditor.js';
 
 	You'll notice the examples before used `print()` statements to pipe outputs to stdout.
 	This works reasonably well, but is restricted to textual outputs.
-	Below, we patch matplotlib's `show()` function to encode figures as a base64 png str to stdout,
-	which we catch and render as an image using the `MatplotlibCodeEditor` component.
-
-	````
-	<MatplotlibCodeEditor
-	metastring='packages="matplotlib"' 
-	code={`import os...`}
-	/>
-	````
 
 	<MatplotlibCodeEditor
 	metastring='packages="matplotlib"' 
@@ -118,6 +109,16 @@ fig, ax = plt.subplots()
 ax.plot([1,3,2])
 plt.show()`}
 	/>
+	
+	Above, we patch matplotlib's `show()` function to encode figures as a base64 png str to stdout,
+	which we catch and render as an image using the `MatplotlibCodeEditor` component.
+
+	````
+	<MatplotlibCodeEditor
+	metastring='packages="matplotlib"' 
+	code={`import os...`}
+	/>
+	````
 
   </TabItem>
   
