@@ -7,10 +7,10 @@ channels:
 dependencies:
   - jq
   - make
-  - nodejs
+  - nodejs=18.17.1
   - pip
-  - python
-  - yarn
+  - python=3.11
+  - yarn=3.5.0
   - build
   - hatch
-  - jupyterlab
+  - jupyterlab==4.0.3

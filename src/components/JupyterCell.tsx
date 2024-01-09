@@ -22,10 +22,13 @@ const JupyterCell = (props: any) => {
               jupyterToken={token}
               jupyterServerHttpUrl={serverHttpUrl}
               jupyterServerWsUrl={serverWsUrl}
-              lite={false}
               disableCssLoading={true}
+              useRunningKernelIndex={-1}
+              startDefaultKernel={true}
+              terminals={false}
+              lite={false}
             >
-              <Cell source={source}/>
+              <Cell source={source} autoStart={false}/>
             </Jupyter>
           </>
         )

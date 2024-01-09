@@ -1,0 +1,95 @@
+---
+id: phase-contrast-demo
+sidebar_position: 3
+title: py4DSTEM Phase Contrast
+hide_table_of_contents: true
+hide_title: true
+---
+
+import JupyterCell from '@site/src/components/JupyterCell';
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# py4DSTEM phase contrast
+
+<Tabs lazy>
+
+  <TabItem value="data" label="Load data">
+
+<JupyterCell
+  source= {`# import lines
+!pip install "https://raw.githubusercontent.com/gvarnavi/py4DSTEM-lite/phase_contrast/dist/py4DSTEM-0.14.9-py3-none-any.whl" > /dev/null 2>&1
+import numpy as np
+import py4DSTEM
+
+# download the 4DSTEM dataset
+gdrive_id ="1C3tXV5BXz0JXbmyu3wTu3NutuIYYsN8A"
+file_data = 'ptycho_MoS2_bin2.h5'
+
+py4DSTEM.io.gdrive_download(
+    id_ = f"https://drive.google.com/uc?id={gdrive_id}",
+    filename = file_data,
+)
+
+# plot mean diffraction pattern
+dataset = py4DSTEM.read(file_data)
+dataset.get_dp_mean();
+
+py4DSTEM.show(
+    dataset.tree('dp_mean'),
+    ticks=False,
+    cmap='turbo',
+    power=0.125,
+)`}
+  serverHttpUrl='https://oss.datalayer.tech/api/jupyter'
+  serverWsUrl='wss://oss.datalayer.tech/api/jupyter'
+  token='60c1661cc408f978c309d04157af55c9588ff9557c9380e4fb50785750703da6'
+ />
+
+  </TabItem>
+
+  <TabItem value="preprocess" label="Preprocessing">
+
+<JupyterCell
+  source= {`# initialize and preprocess
+ptycho = py4DSTEM.process.phase.SingleslicePtychographicReconstruction(
+    datacube=dataset,
+    verbose=False,
+    energy = 80e3,
+    semiangle_cutoff = 21.4,
+    object_type='potential',
+    object_padding_px = (0,0),
+).preprocess(
+    plot_center_of_mass = False,
+    force_com_rotation = 30,
+    force_com_transpose = False,
+    fit_function="constant",
+)`}
+  serverHttpUrl='https://oss.datalayer.tech/api/jupyter'
+  serverWsUrl='wss://oss.datalayer.tech/api/jupyter'
+  token='60c1661cc408f978c309d04157af55c9588ff9557c9380e4fb50785750703da6'
+ />
+
+  </TabItem>
+
+  <TabItem value="reconstruct" label="Reconstruction">
+
+<JupyterCell
+  source= {`# reconstruct
+ptycho = ptycho.reconstruct(
+    reset = True,
+    max_iter = 2,
+    max_batch_size = 510,
+    gaussian_filter_sigma = 0.3,
+).visualize(
+)`}
+  serverHttpUrl='https://oss.datalayer.tech/api/jupyter'
+  serverWsUrl='wss://oss.datalayer.tech/api/jupyter'
+  token='60c1661cc408f978c309d04157af55c9588ff9557c9380e4fb50785750703da6'
+ />
+
+  </TabItem>
+
+</Tabs>
+

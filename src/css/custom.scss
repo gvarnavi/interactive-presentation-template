@@ -24,6 +24,11 @@ a:not(.button):not(.navbar__brand):not(.menu__link) {
   font: var(--ifm-code-font-size)/var(--ifm-pre-line-height) var(--ifm-font-family-monospace) !important;
 }
 
+// Fix for Lumino widget not resizing inside tabs
+.jp-Cell, .jp-Toolbar {
+  width : 100% !important;
+}
+
 // See: https://docusaurus.io/docs/styling-layout#styling-your-site-with-infima
 // For a colour picker to select your own theme colour
 :root {
